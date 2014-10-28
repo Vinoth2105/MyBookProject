@@ -42,7 +42,7 @@ function addFeed(id){
 	createFeedsService(feed);
 }
 
-function deleteFeeds(id){	
+function deleteFeeds(id){
 	deleteFeedsService(id);
 }
 var createFeedsService = service("CreateFeed");
@@ -59,81 +59,91 @@ function service(type){
 	if(type === "CreateFeed"){	
 		ret =  function(feed){
 			feeds.push(feed);			
-			reloadFeeds(feeds);
+			loadFeeds(feeds);
 		};
 	} else if (type === "DeleteFeed"){
 			ret =  function(id){
-			feeds=feedx;
-			console.log(feeds);
-			feeds.splice(id,1);	
-			console.log(feeds);
-			var myNode = document.getElementById("loadFeeds");
-			while (myNode.firstChild) {
-				myNode.removeChild(myNode.firstChild);
-			}			
-			reloadFeeds(feeds);
+			feeds=feedx;			
+			feeds.splice(id,1);			
+			loadFeeds(feeds);
 		};
 	} 
 	return ret;
 }
 
 
-function reloadFeeds(feedsArray){		
-	var element = document.getElementById("loadFeeds");	
-	while (element.firstChild) {
-		element.removeChild(element.firstChild);
-	}	
-	var feeds = feedsArray;	
-	feedx=feeds;
-	var div = document.createElement("div");	
-	var emptyRow,emptyColumn,userFeed,userFeedText,userFeedDelete,userFeedDate,img,node,input,node1,index,userIcon;
-		for(var i=0,l=feeds.length;i<l;i++){				
-			emptyRow = getElement("div","emptyRow");
-			emptyColumn = getElement("div","emptyColumn");
-			userFeed = getElement("div","userFeed");
-			userFeedText = getElement("div","UserFeedText");
-			userFeedDelete = getElement("div","UserFeedDelete");
-			userFeedDate = getElement("div","UserFeedDate");
-			userIcon = getElement("div","userIcon");
-			img = document.createElement("img");		
-			img.setAttribute("src", "../images/user.jpg");
-			img.setAttribute("height", "40px");
-			img.setAttribute("width", "40px");
-			userIcon.appendChild(img);
-			userIcon.setAttribute("id", "img1");
-			node = document.createElement("a");
-			if(feeds[i] instanceof URLFeed){
-				node.setAttribute("href", feeds[i].getFeed());		
-			}
-			node.setAttribute("id", "txt");
-			node.innerHTML=feeds[i].getFeed();
-			userFeedText.appendChild(node);
-			input = document.createElement("input");		
-			input.setAttribute("type", "button");
-			input.setAttribute("onclick", ("deleteFeeds("+i+")"));
-			input.setAttribute("id", "but");
-			userFeedDelete.appendChild(input);
-			node1 = document.createTextNode(getDateString(feeds[i].time));
-			userFeedDate.appendChild(node1);
-			userFeed.setAttribute("id", "feedDiv");
-			userFeed.appendChild(userIcon);
-			userFeed.appendChild(userFeedText);
-			userFeed.appendChild(userFeedDelete);
-			userFeed.appendChild(userFeedDate);
-			div.appendChild(emptyRow);
-			div.appendChild(emptyColumn);
-			div.appendChild(userFeed);
-		}
-	element.appendChild(div);
-}
-
-function getElement(type,styleClass){
-	var element = document.createElement(type);
-	element.setAttribute("class",styleClass);
-	return element;
-}
-
 function getDateString(date){
 	return (date.getMonth()+1) +"/"+ (date.getDate()) + "/"+(date.getFullYear()) + " " + (date.getHours() > 12 ? date.getHours() - 12 : date.getHours() )+":"+(date.getMinutes()) + " " + (date.getHours() > 12 ? "PM" : "AM" );
+}
+
+function loadFeeds(feedsArray) 
+{
+	
+		var feeds = feedsArray;	
+		feedx=feeds;
+		var img,node,inputButton;
+		var myTableDiv = document.getElementById("myDynamicTable");	
+		myTableDiv.innerHTML = "";	
+		
+		var table = document.createElement('TABLE');
+		table.border='1';
+		table.align ="center";
+		table.setAttribute("id","one");
+	   
+		var tableBody = document.createElement('TBODY');
+		table.appendChild(tableBody);
+		 
+		for(var i=0,l=feeds.length;i<l;i++){	
+		   var tr = document.createElement('TR');
+		   if(i%2 == 0){
+			  tr.setAttribute("id", "cellone");
+		   }else{
+			  tr.setAttribute("id", "celltwo");
+		   }
+		  
+		   tableBody.appendChild(tr);
+		  
+		   for (var j=0; j<4; j++){
+			   var td = document.createElement('TD');
+			   td.width='250';
+				
+				if(j==0)
+				{	
+					img = document.createElement("img");		
+					img.setAttribute("src", "../images/user.jpg");
+					img.setAttribute("height", "40px");
+					img.setAttribute("width", "40px");
+					td.appendChild(img);
+				}else if(j==1){
+					node = document.createElement("a");
+					if(feeds[i] instanceof URLFeed){
+						node.setAttribute("href", feeds[i].getFeed());		
+					}
+					node.setAttribute("id", "txt");
+					node.innerHTML=feeds[i].getFeed();
+					td.appendChild(node);
+				}else if(j==2){
+					td.appendChild(document.createTextNode(getDateString(feeds[i].time)));					
+				}else{
+				
+					inputButton = document.createElement("img");		
+					inputButton.setAttribute("src", "../images/delete1.jpg");
+					inputButton.setAttribute("height", "50px");
+					inputButton.setAttribute("width", "50px");
+					inputButton.setAttribute("onclick", ("deleteFeeds("+i+")"));
+				
+					inputButton.id="deleteButton";
+					inputButton.name="deleteButton";
+					//inputButton.addEventListener("click", deleteFeeds(i));
+				
+					//inputButton.onclick="javascript:deleteFeeds("+i+")";				
+					td.appendChild(inputButton)				
+				}	   
+			  
+			   tr.appendChild(td);
+		   }
+		}
+		myTableDiv.appendChild(table);
+   
 }
 

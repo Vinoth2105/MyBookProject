@@ -20,14 +20,21 @@
 		<a href="profile.html">Profile</a><br>
 	</div>
 
-	<div id="section">
+	<div id="section" height="100%" width="100%" style="background-color:#BEF781">
 		<br><br>
-		<input id="feedText" value="" type="text"/>&nbsp;
+		<input id="feedText" size="30" class="tftextinput" value="" type="text"/>&nbsp;&nbsp;&nbsp;
 		
-		<input type="button" value="Post feed" onclick="addFeed('feedText')"/>
+		<!--<input type="button" value="Post feed" onclick="12addFeed('feedText')"/>-->
 		
-		<div id="loadFeeds" class="feedlist"></div>
+		<!--<div id="loadFeeds" class="feedlist"></div>-->
+		<input type="button" id="post"  value="Post Feed" onclick="addFeed('feedText')" class="tfbutton">
+		<br><br>
+		<div id="myDynamicTable" style="background-color:#BEF781">
+			
+			
+		</div>
 	</div>
+	
 
 	<div id="footer" style="margin-top:-5px;">
 	Talent Improving exercise, OFS
