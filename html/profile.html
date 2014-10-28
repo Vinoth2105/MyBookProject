@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"> 
+  <title>MyBook - Profile</title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <script type="text/javascript">
+  var profileObj = {};
+  
+  function saveProfile(){
+ 
+	var frmName = document.frmProfile;
+	var name 	= frmName.name.value;
+	var age 	= frmName.age.value;
+	var phone 	= frmName.phone.value;
+	var email 	= frmName.email.value;
+	var adress 	= frmName.address.value;
+
+	if(name == ""){
+		alert("Please enter user name.");
+		frmName.name.focus();
+		return false;
+	}
+	var validAgeMsg = ageCheck(age)
+	if(validAgeMsg != ""){		
+		alert(validAgeMsg);
+		frmName.age.focus();
+		return false;
+	}
+	var validPhoneMsg = phonenumber(phone)
+	if(validPhoneMsg != "" ){
+		
+		alert(validPhoneMsg);
+		frmName.phone.focus();
+		return false;
+	}
+	var validEmailMsg = validateEmail(frmName.email);
+	if(validEmailMsg != ""){		
+		alert(validEmailMsg);
+		frmName.email.focus();
+		return false;
+	}
+
+	//Save Profile starts here//
+	
+	profileObj.id = 1;
+	profileObj.name = name;
+	profileObj.age = age;
+	profileObj.phone= phone;
+	profileObj.email = email;
+	profileObj.address = address;
+	//saveProfileDetails(profileObj);
+	alert("Succesfully added the user information!!");
+	
+  }
+  
+  function saveProfileDetails(profileToSave){
+	
+ 	localStorage.setItem("profile",profileToSave); 
+  } 
+  
+ function ageCheck(age){
+ 
+	var error="";	
+	if (age == "") {
+		error = "You didn't enter age.\n";
+	}else if(age<1||age>100){
+		error = "Age limit should be between 0 and 100.";  
+	}else if(isNaN(age)){
+		error = "Age should be in numeric value";
+	}else{
+		return "";
+	}
+	return error;
+ }  
+  
+function phonenumber(phone)  
+{
+  var error="";	
+   if (phone == "") {
+		error = "You didn't enter phone number.\n";
+	}else if(isNaN(phone)){
+		error = "Alphabets are not allowe in phone number.";
+	}else if(phone.length <= 10){  
+		error = "Not a valid phone number.";
+	}else{ 
+		return "";  
+	}
+	return error;	
+ }
+ 
+ function validateEmail(emailObj){
+	
+	var error="";	
+    var tfld = trim(emailObj.value);	
+    var emailFilter = /^[^@]+@[^@.]+\.[^@]*\w\w$/ ;
+    var illegalChars= /[\(\)\<\>\,\;\:\\\"\[\]]/ ;
+    
+    if (emailObj.value == "") {
+        error = "You didn't enter an email address.\n";
+    }else if (!emailFilter.test(tfld)) {              
+        error = "Please enter a valid email address.\n";
+    }else if(emailObj.value.match(illegalChars)) {      
+        error = "The email address contains illegal characters.\n";
+    }else{
+		error="";
+	}	
+    return error; 
+ }
+ 
+ function trim(s)
+	{
+	  return s.replace(/^\s+|\s+$/, '');
+	}
+	
+</script>
+ 
+</head>
+
+<body>
+	<div id="header">
+	<div width="50%" style="float:left;"><h1>My Book</h1></div>
+		<div width="50%">
+			<a href="../home.html">Sign out</a>
+		</div>		
+	</div>
+	
+	<div id="nav">
+		<a href="myfeed.html">Feed</a><br>
+		<a href="profile.html">Profile</a><br>
+	</div>
+
+	<div id="section" style="float:left;">
+		<form name="frmProfile" method="post" onsubmit="return saveProfile()">
+	
+		<p><input type="text" name="name" id="name" maxlength="50" placeholder="Name"/> *</p>
+		<p><input type="text" name="age" id="age" placeholder="Age"/> *</p>
+		<p><input type="text" name="phone" id="phone" placeholder="Phone"/> *</p>
+		<p><input type="text" name="email" id="email" placeholder="Email"/> *</p>
+		<p><textarea rows="4" cols="35" name="address" id="address" value="" placeholder="Address"></textarea></p>
+		<p>Profile Image &nbsp;&nbsp;<input type = "file" id = "upload"/></p>
+		<p><input type="submit" id="submit" name="submit" value="Save"></p>
+	</form>
+	
+	</div>
+
+	<div id="footer"style="margin-top:-5px;">
+	Talent Improving exercise, OFS
+	</div>
+	
+</body>
+	
+</html>

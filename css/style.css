@@ -1,0 +1,63 @@
+#header {
+    background-color: #181907;
+    color:white;
+    text-align:right;
+    padding: 10px;
+	height:80px;
+}
+#nav {
+    line-height:30px;
+    background-color: #58FAAC;
+    height:550px;
+    width:100px;
+    float:left;
+    padding:5px;	      
+}
+#section {
+    text-align:center;	 	 
+}
+#footer {
+    background-color:#181907;
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:15px;	 	 
+}
+#image1{
+	line-height:30px;
+	height:152px;
+    width:299px;
+    float:right;
+    padding:5px;
+}
+#image2{
+	line-height:30px;
+	height:75px;
+    float:left;
+    padding:5px;
+}
+#img1{
+    float:left;
+}
+#txt{
+	font-family: "Times New Roman", Times, serif;
+	 font-size: 30px;
+}
+#but {
+
+    display:block;
+	position: relative;
+    float:right;
+    width:32px;
+    height:32px;
+	bottom: 25px;
+	right: 250px;
+	background-image: url(../images/delete.jpg);
+	background-repeat:no-repeat;
+}
+#loadFeeds{
+right: 400px;
+}
+#feedDiv{ }
+#feedDiv:nth-child(even) {background: #92D2F0}
+#feedDiv:nth-child(odd) {background: #C6F3F5}

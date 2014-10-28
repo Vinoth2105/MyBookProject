@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"> 
+  <title>MyBook - Feeds</title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <script type="text/javascript" src="../scripts/feed.js"></script>
+ 
+</head>
+
+<body>
+	<div id="header">
+	<div width="50%" style="float:left;"><h1>My Book</h1></div>
+		<div width="50%">
+			<a href="../home.html">Sign out</a>
+		</div>		
+	</div>
+	
+	<div id="nav">
+		<a href="myfeed.html">Feed</a><br>
+		<a href="profile.html">Profile</a><br>
+	</div>
+
+	<div id="section">
+		<br><br>
+		<input id="feedText" value="" type="text"/>&nbsp;
+		
+		<input type="button" value="Post feed" onclick="addFeed('feedText')"/>
+		
+		<div id="loadFeeds" class="feedlist"></div>
+	</div>
+
+	<div id="footer" style="margin-top:-5px;">
+	Talent Improving exercise, OFS
+	</div>	
+</body>
+	
+</html>
